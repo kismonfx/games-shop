@@ -1,0 +1,34 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+}
+.header__btn {
+  font-size: 20px;
+}
+.header__btn:hover {
+  background-color: #5262bc;
+}
+.margin-right {
+  margin-right: 10px;
+}
+.main {
+  height: calc(100vh - 64px);
+}
+.sidenav {
+  width: 200px;
+}
+.nav {
+  padding: 0;
+}
+.content {
+  padding: 25px 50px;
+}
+.active {
+  background-color: #3f51b5 !important;
+  color: #fff;
+}
+.active:hover {
+  background-color: #5262bc !important;
+}
