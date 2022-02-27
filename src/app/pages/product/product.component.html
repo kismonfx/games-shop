@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="product">
+
+    <div class="header">
+
+      <div class="product__title">
+        FIFA 22
+        <button mat-icon-button>
+          <mat-icon>favorite</mat-icon>
+        </button>
+      </div>
+
+      <div class="product__info">
+        <div class="product__img">
+          <img src="assets/fifa22.png">
+        </div>
+
+        <div class="product__buy">
+          <div class="product__buy-price">
+            {{2500 | currency:'RUB':'symbol-narrow':'1.0-0'}}
+          </div>
+          <button class="product__buy-btn" mat-raised-button color="accent">в корзину</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="product__rating" [style.backgroundColor]="getColor(73)">
+      <div class="product__rating-value">73</div>
+      <div class="product__rating-desc">Metacritic</div>
+    </div>
+
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Об игре">
+        <div class="product__about">
+          <ul class="product__about-list">
+            <li class="product__about-item">
+              <div class="product__about-title">Жанр</div>
+              Sport
+            </li>
+            <li class="product__about-item">
+              <div class="product__about-title">Платформа</div>
+              PC
+            </li>
+            <li class="product__about-item">
+              <div class="product__about-title">Год выхода</div>
+              2021
+            </li>
+            <li class="product__about-item">
+              <div class="product__about-title">Разработчик</div>
+              Electronic Arts
+            </li>
+          </ul>
+        </div>
+      </mat-tab>
+      <mat-tab label="Описание">
+        <div class="product__desc">
+          EA SPORTS™ FIFA 22 Powered by Football™ графической технологии как никогда приближает игру к реальности с
+          фундаментальным улучшением игрового процесса и инновациями во всех режимах.
+          Воплотите свои футбольные мечты в жизнь в режиме карьеры в FIFA 22 — создайте клуб и пройдите с ним путь от
+          кандидатов на вылет до мировых гигантов. Играйте в обновленный режим карьеры, оцените новые способы
+          прогрессировать и добиваться успеха и с головой погрузитесь в восхождение вашего игрока в футбольной иерархии.
+        </div>
+      </mat-tab>
+      <mat-tab label="Системные требования">
+        <div class="product__about">
+          <ul class="product__about-list">
+            <li class="product__about-item">
+              <div class="product__about-title">ОС</div>
+              Windows 10
+            </li>
+            <li class="product__about-item">
+              <div class="product__about-title">Процессор</div>
+              Intel Core i7-6700
+            </li>
+            <li class="product__about-item">
+              <div class="product__about-title">Видеокарта</div>
+              NVIDIA GeForce GTX 1070
+            </li>
+            <li class="product__about-item">
+              <div class="product__about-title">Оперативная память</div>
+              16 ГБ ОЗУ
+            </li>
+            <li class="product__about-item">
+              <div class="product__about-title">DirectX</div>
+              Версии 12
+            </li>
+            <li class="product__about-item">
+              <div class="product__about-title">Место на диске</div>
+              60 ГБ
+            </li>
+          </ul>
+
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

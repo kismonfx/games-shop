@@ -1,1 +1,31 @@
-<p>catalog works!</p>
+<div class="container">
+
+  <div class="filter">
+    <mat-form-field class="filter__input" appearance="outline">
+      <mat-label>Поиск по названию</mat-label>
+      <input matInput placeholder="Введите название">
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div class="content">
+    <div class="card" [routerLink]="['/game', 1]">
+      <div class="card__desc">
+        <div class="card__img">
+          <img src="assets/fifa22.png">
+        </div>
+        <div class="card__name">
+          fifa 22
+          <div class="card__info">
+              <mat-icon class="card__platform">desktop_windows</mat-icon>
+              sport
+          </div>
+        </div>
+      </div>
+      <div class="card__price">
+        {{2500 | currency:'RUB':'symbol-narrow':'1.0-0'}}
+      </div>
+    </div>
+  </div>
+
+</div>

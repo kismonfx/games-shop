@@ -3,32 +3,32 @@
     <button mat-raised-button color="primary" class="header__btn margin-right" (click)="drawer.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <button mat-flat-button color="primary" class="header__btn">
+    <button mat-flat-button color="primary" class="header__btn" routerLink="">
       Games-Shop
     </button>
   </div>
-  <button mat-raised-button color="primary" class="header__btn">
-    <mat-icon class="margin-right">account_box</mat-icon>
-    Аккаунт
-  </button>
+<!--  <button mat-raised-button color="primary" class="header__btn">-->
+<!--    <mat-icon class="margin-right">account_box</mat-icon>-->
+<!--    Аккаунт-->
+<!--  </button>-->
 </mat-toolbar>
 
 <mat-sidenav-container class="main">
   <mat-sidenav #drawer opened="true" mode="side" class="sidenav">
     <mat-nav-list class="nav">
-      <a mat-list-item routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+      <a class="nav__item" mat-list-item routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
         <mat-icon class="margin-right">view_list</mat-icon>
         Каталог
       </a>
-      <a mat-list-item routerLink="/cart" routerLinkActive="active">
-        <mat-icon class="margin-right">shopping_cart</mat-icon>
+      <a class="nav__item" mat-list-item routerLink="/cart" routerLinkActive="active">
+        <mat-icon matBadge="2" matBadgeColor="warn" class="margin-right">shopping_cart</mat-icon>
         Корзина
       </a>
-      <a mat-list-item routerLink="/favorites" routerLinkActive="active">
+      <a class="nav__item" mat-list-item routerLink="/favorites" routerLinkActive="active">
         <mat-icon class="margin-right">stars</mat-icon>
         Избранное
       </a>
-      <a mat-list-item routerLink="/orders" routerLinkActive="active">
+      <a class="nav__item" mat-list-item routerLink="/orders" routerLinkActive="active">
         <mat-icon class="margin-right">store</mat-icon>
         Мои заказы
       </a>
