@@ -10,13 +10,18 @@ import { CatalogComponent } from "./pages/catalog/catalog.component";
 import { CartComponent } from "./pages/cart/cart.component";
 import { FavouritesComponent } from "./pages/favourites/favourites.component";
 import { OrdersComponent } from "./pages/orders/orders.component";
-import { ProductComponent } from './pages/product/product.component';
+import { ProductComponent } from "./pages/product/product.component";
+import { StoreModule } from "@ngrx/store";
+import { reducers } from "./store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { CatalogItemComponent } from "./components/catalog-item/catalog-item.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     CartComponent,
     CatalogComponent,
+    CatalogItemComponent,
     FavouritesComponent,
     OrdersComponent,
     ProductComponent,
@@ -27,6 +32,9 @@ import { ProductComponent } from './pages/product/product.component';
     BrowserModule,
     HeaderModule,
     MaterialModule,
+
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({}),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,22 @@
+<div class="card" [routerLink]="['/game', product.id]">
+  <div class="card__desc">
+    <div class="card__img">
+      <img src="{{product.img}}">
+    </div>
+    <div class="card__name">
+      {{product.title}}
+      <mat-icon *ngIf="isFavourite">favorite</mat-icon>
+      <div class="card__info">
+        <mat-icon class="card__platform">desktop_windows</mat-icon>
+        {{product.genre}}
+      </div>
+    </div>
+  </div>
+  <div class="card__price">
+    {{product.price | currency:'RUB':'symbol-narrow':'1.0-0'}}
+  </div>
+</div>
+
+
+
+

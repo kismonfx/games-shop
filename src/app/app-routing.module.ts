@@ -4,7 +4,7 @@ import { CatalogComponent } from "./pages/catalog/catalog.component";
 import { CartComponent } from "./pages/cart/cart.component";
 import { FavouritesComponent } from "./pages/favourites/favourites.component";
 import { OrdersComponent } from "./pages/orders/orders.component";
-import {ProductComponent} from "./pages/product/product.component";
+import { ProductComponent } from "./pages/product/product.component";
 
 const routes: Routes = [
   { path: "cart", component: CartComponent },

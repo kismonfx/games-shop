@@ -8,8 +8,11 @@ import { MatListModule } from "@angular/material/list";
 import { MatCardModule } from "@angular/material/card";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatInputModule } from "@angular/material/input";
-import {MatSelectModule} from "@angular/material/select";
-import {MatTabsModule} from "@angular/material/tabs";
+import { MatSelectModule } from "@angular/material/select";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatTableModule } from "@angular/material/table";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatDividerModule } from "@angular/material/divider";
 
 const material = [
   MatIconModule,
@@ -21,7 +24,10 @@ const material = [
   MatBadgeModule,
   MatInputModule,
   MatSelectModule,
-  MatTabsModule
+  MatTabsModule,
+  MatTableModule,
+  MatExpansionModule,
+  MatDividerModule,
 ];
 
 @NgModule({

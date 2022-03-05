@@ -1,1 +1,51 @@
-<p>cart works!</p>
+<div class="container">
+
+  <div class="cart">
+
+    <div *ngFor="let product of products" class="product">
+      <div class="product__desc">
+        <div class="product__img">
+          <img src="{{product.img}}">
+        </div>
+        <div class="product__title" [routerLink]="['/game', 1]">
+          {{product.title}}
+        </div>
+      </div>
+
+      <div class="product__quantity">
+        <button mat-icon-button>
+          <mat-icon class="product__btn">remove</mat-icon>
+        </button>
+        {{product.qty}}
+        <button mat-icon-button>
+          <mat-icon class="product__btn">add</mat-icon>
+        </button>
+      </div>
+
+      <div class="product__price">
+        {{product.price | currency:'RUB':'symbol-narrow':'1.0-0'}}
+      </div>
+
+      <button mat-icon-button>
+        <mat-icon class="product__btn">clear</mat-icon>
+      </button>
+    </div>
+
+    <ng-container *ngIf="products.length">
+      <div class="cart__total">
+        Итого: {{getTotal() | currency:'RUB':'symbol-narrow':'1.0-0'}}
+      </div>
+
+      <div class="cart__actions">
+        <button mat-raised-button color="primary">Оформить заказ</button>
+      </div>
+    </ng-container>
+
+    <div *ngIf="!products.length" class="cart__actions">
+      Корзина пуста!
+      <button mat-raised-button color="primary" [routerLink]="['']">К покупкам</button>
+    </div>
+
+  </div>
+
+</div>

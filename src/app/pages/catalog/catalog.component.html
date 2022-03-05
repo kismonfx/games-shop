@@ -9,23 +9,10 @@
   </div>
 
   <div class="content">
-    <div class="card" [routerLink]="['/game', 1]">
-      <div class="card__desc">
-        <div class="card__img">
-          <img src="assets/fifa22.png">
-        </div>
-        <div class="card__name">
-          fifa 22
-          <div class="card__info">
-              <mat-icon class="card__platform">desktop_windows</mat-icon>
-              sport
-          </div>
-        </div>
-      </div>
-      <div class="card__price">
-        {{2500 | currency:'RUB':'symbol-narrow':'1.0-0'}}
-      </div>
-    </div>
+
+    <app-catalog-item *ngFor="let product of products$ | async" [product]="product" [isFavourite]="false">
+    </app-catalog-item>
+
   </div>
 
 </div>

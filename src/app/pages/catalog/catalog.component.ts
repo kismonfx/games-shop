@@ -1,4 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
+import { Product } from "../../models/product.model";
+import { getProducts } from "../../store/selectors/product.selector";
 
 @Component({
   selector: "app-catalog",
@@ -7,7 +11,12 @@ import { Component, OnInit } from "@angular/core";
 })
 export class CatalogComponent implements OnInit {
 
-  constructor() { }
+  products$: Observable<Product[]>;
+
+  constructor(private store$: Store) {
+    this.products$ = this.store$.select(getProducts);
+  }
+
 
   ngOnInit(): void {
   }
