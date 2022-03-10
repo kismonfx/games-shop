@@ -15,6 +15,13 @@ import { StoreModule } from "@ngrx/store";
 import { reducers } from "./store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { CatalogItemComponent } from "./components/catalog-item/catalog-item.component";
+import { ProductService } from "./services/product/product.service";
+import { EffectsModule } from "@ngrx/effects";
+import { ProductEffects } from "./store/effects/product.effect";
+import { HttpClientModule } from "@angular/common/http";
+import { DialogComponent } from "./components/dialog/dialog.component";
+import { ProductFormComponent } from "./components/product-form/product-form.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,21 +29,31 @@ import { CatalogItemComponent } from "./components/catalog-item/catalog-item.com
     CartComponent,
     CatalogComponent,
     CatalogItemComponent,
+    DialogComponent,
     FavouritesComponent,
     OrdersComponent,
     ProductComponent,
+    ProductFormComponent,
+  ],
+  entryComponents: [
+    DialogComponent,
+    ProductFormComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
+    FormsModule,
     HeaderModule,
+    HttpClientModule,
     MaterialModule,
+    ReactiveFormsModule,
 
     StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([ProductEffects]),
     StoreDevtoolsModule.instrument({}),
   ],
-  providers: [],
+  providers: [ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,11 +8,13 @@
     </mat-form-field>
   </div>
 
-  <div class="content">
+  <div class="create" >
+    <button style="width: 100%" mat-flat-button color="primary" (click)="openAddForm()">Добавить товар</button>
+  </div>
 
+  <div class="content">
     <app-catalog-item *ngFor="let product of products$ | async" [product]="product" [isFavourite]="false">
     </app-catalog-item>
-
   </div>
 
 </div>

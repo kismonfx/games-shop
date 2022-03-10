@@ -12,7 +12,7 @@
 
       <div class="product__info">
         <div class="product__img">
-          <img src="{{product?.img}}">
+          <img src='http://localhost:3000/{{product?.image}}'>
         </div>
 
         <div class="product__buy">
@@ -25,7 +25,7 @@
 
     </div>
 
-    <div class="product__rating" [style.backgroundColor]="getColor(product!.rating)">
+    <div class="product__rating" [style.backgroundColor]="getColor(product?.rating)">
       <div class="product__rating-value">{{product?.rating}}</div>
       <div class="product__rating-desc">Metacritic</div>
     </div>
@@ -59,5 +59,6 @@
         </div>
       </mat-tab>
     </mat-tab-group>
+
   </div>
 </div>
