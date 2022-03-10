@@ -13,6 +13,8 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatTableModule } from "@angular/material/table";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatDividerModule } from "@angular/material/divider";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 const material = [
   MatIconModule,
@@ -28,6 +30,8 @@ const material = [
   MatTableModule,
   MatExpansionModule,
   MatDividerModule,
+  MatDialogModule,
+  MatSnackBarModule,
 ];
 
 @NgModule({

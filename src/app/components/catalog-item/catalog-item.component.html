@@ -1,21 +1,38 @@
-<div class="card" [routerLink]="['/game', product.id]">
-  <div class="card__desc">
-    <div class="card__img">
-      <img src="{{product.img}}">
-    </div>
-    <div class="card__name">
-      {{product.title}}
-      <mat-icon *ngIf="isFavourite">favorite</mat-icon>
-      <div class="card__info">
-        <mat-icon class="card__platform">desktop_windows</mat-icon>
-        {{product.genre}}
+<div class="container">
+  <div class="card" [routerLink]="['/game', product._id]">
+    <div class="card__desc">
+      <div class="card__img">
+        <img src= 'http://localhost:3000/{{product.image}}'>
+      </div>
+      <div class="card__name">
+        {{product.title}}
+        <mat-icon *ngIf="isFavourite">favorite</mat-icon>
+        <div class="card__info">
+          <ng-container [ngSwitch]="product.platform">
+            <img *ngSwitchCase="'PC'" class="card__platform" src="../../../assets/win.svg">
+            <img *ngSwitchCase="'PS4'" class="card__platform" src="../../../assets/ps.svg">
+            <img *ngSwitchCase="'XBOX'" class="card__platform" src="../../../assets/xbox.svg">
+          </ng-container>
+          {{product.genre}}
+        </div>
       </div>
     </div>
+    <div class="card__price">
+      {{product.price | currency:'RUB':'symbol-narrow':'1.0-0'}}
+    </div>
   </div>
-  <div class="card__price">
-    {{product.price | currency:'RUB':'symbol-narrow':'1.0-0'}}
+
+  <div class="card__actions">
+    <button mat-raised-button color="primary" class="card__actions-item" (click)="openUpdateForm()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-raised-button color="warn" class="card__actions-item" (click)="openDeleteForm()">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
   </div>
+
 </div>
+
 
 
 

@@ -1,0 +1,100 @@
+<h2 *ngIf="data">Изменение товара</h2>
+<h2 *ngIf="!data">Добавление товара</h2>
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline">
+    <mat-label>Название</mat-label>
+    <input matInput placeholder="Введите название игры" formControlName="title">
+    <mat-error *ngIf="form.get('title')!.hasError('required')">
+      Поле <strong>обязательно</strong> для заполнения
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Разработчик</mat-label>
+    <input matInput placeholder="Введите название разработчика" formControlName="developer">
+    <mat-error *ngIf="form.get('developer')!.hasError('required')">
+      Поле <strong>обязательно</strong> для заполнения
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Описание</mat-label>
+    <textarea matInput placeholder="Введите описание игры" formControlName="description"></textarea>
+    <mat-error *ngIf="form.get('description')!.hasError('required')">
+      Поле <strong>обязательно</strong> для заполнения
+    </mat-error>
+  </mat-form-field>
+
+  <div class="row">
+    <mat-form-field class="row__item" appearance="outline">
+      <mat-label>Цена</mat-label>
+      <input matInput type="number" placeholder="Введите цену игры" formControlName="price">
+      <mat-error *ngIf="form.get('price')!.hasError('required')">
+        Поле <strong>обязательно</strong> для заполнения
+      </mat-error>
+      <mat-error *ngIf="form.get('price')!.hasError('min')">
+        Цена не может быть меньше 0
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="row__item" appearance="outline">
+      <mat-label>Рейтинг</mat-label>
+      <input matInput type="number" placeholder="Введите рейтинг игры" formControlName="rating">
+      <mat-error *ngIf="form.get('rating')!.hasError('required')">
+        Поле <strong>обязательно</strong> для заполнения
+      </mat-error>
+      <mat-error *ngIf="form.get('rating')!.hasError('min')">
+        Рейтинг не может быть меньше 0
+      </mat-error>
+      <mat-error *ngIf="form.get('rating')!.hasError('max')">
+        Рейтинг не может быть больше 100
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="row__item" appearance="outline">
+      <mat-label>Платформа</mat-label>
+      <mat-select formControlName="platform">
+        <mat-option value="PC">PC</mat-option>
+        <mat-option value="PS4">PS4</mat-option>
+        <mat-option value="XBOX">XBOX</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('platform')!.hasError('required')">
+        Поле <strong>обязательно</strong> для заполнения
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="row__item" appearance="outline">
+      <mat-label>Жанр</mat-label>
+      <mat-select formControlName="genre">
+        <mat-option value="Action">Action</mat-option>
+        <mat-option value="RPG">RPG</mat-option>
+        <mat-option value="Sport">Sport</mat-option>
+        <mat-option value="Strategy">Strategy</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('genre')!.hasError('required')">
+        Поле <strong>обязательно</strong> для заполнения
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Дата выхода</mat-label>
+    <input matInput type="date" formControlName="release">
+    <mat-error *ngIf="form.get('release')!.hasError('required')">
+      Поле <strong>обязательно</strong> для заполнения
+    </mat-error>
+  </mat-form-field>
+
+  <input class="file" type="file" accept="image/*" formControlName="image" (change)="onFileSelected($event)">
+
+  <mat-dialog-actions class="form__actions">
+    <button *ngIf="data" mat-button type="submit">Изменить</button>
+    <button *ngIf="!data" mat-button type="submit">Добавить</button>
+    <button mat-button mat-dialog-close type="button" (click)="dialogRef.close()">Отмена</button>
+  </mat-dialog-actions>
+
+</form>
+
+

@@ -1,12 +1,13 @@
 export interface Product{
-  id: number;
+  _id: string;
   rating: number;
   price: number;
   title: string;
-  img: string;
+  image?: string;
   genre: string;
   developer: string;
   platform: string;
   description: string;
   release: Date;
+  uploadImage?: File;
 }
