@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Product } from "../../models/product.model";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -10,29 +11,33 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "http://localhost:3000/products";
+  private apiURL = environment.apiURL + "/products";
 
-  getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.url}`);
+  getAllProducts(platform: string, genre: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiURL}`, { params: { platform, genre } });
+  }
+
+  searchProducts(title: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiURL}/search`, { params: { title } });
   }
 
   getOneProduct(id: string): Observable<Product> {
-    return this.http.get<Product>(`${this.url}/${id}`);
+    return this.http.get<Product>(`${this.apiURL}/${id}`);
   }
 
   deleteProduct(id: string): Observable<unknown> {
-    return this.http.delete(`${this.url}/${id}`);
+    return this.http.delete(`${this.apiURL}/${id}`);
   }
 
   addProduct(product: Product): Observable<Product> {
     const formData: FormData = ProductService.getFormData(product);
-    return this.http.post<Product>(`${this.url}`, formData);
+    return this.http.post<Product>(`${this.apiURL}`, formData);
   }
 
   updateProduct(id: string, product: Product): Observable<any> {
     const formData: FormData = ProductService.getFormData(product);
 
-    return this.http.put(`${this.url}/${id}`, formData);
+    return this.http.put(`${this.apiURL}/${id}`, formData);
   }
 
   private static getFormData(product: Product): FormData {

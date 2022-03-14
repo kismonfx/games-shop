@@ -17,10 +17,14 @@ export enum EProductActions{
 
   UPDATE_PRODUCT = "[Product] Update Product",
   UPDATE_PRODUCT_SUCCESS = "[Product] Update Product Success",
+
+  SEARCH_PRODUCTS = "[Product] Search Products",
 }
 
-export const getProducts = createAction(EProductActions.GET_PRODUCTS);
+export const getProducts = createAction(EProductActions.GET_PRODUCTS, props<{ platform: string, genre: string }>());
 export const getProductsSuccess = createAction(EProductActions.GET_PRODUCTS_SUCCESS, props<{ products: Product[] }>());
+
+export const searchProducts = createAction(EProductActions.SEARCH_PRODUCTS, props<{ title: string }>());
 
 export const getProduct = createAction(EProductActions.GET_PRODUCT, props<{ id: string }>());
 export const getProductSuccess = createAction(EProductActions.GET_PRODUCT_SUCCESS, props<{ product: Product }>());

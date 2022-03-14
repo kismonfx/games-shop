@@ -8,6 +8,7 @@ import { RxUnsubscribe } from "../../rx-unsubscribe";
 import { takeUntil } from "rxjs";
 import { ProductFormComponent } from "../product-form/product-form.component";
 import { Router } from "@angular/router";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-catalog-item",
@@ -18,6 +19,8 @@ export class CatalogItemComponent extends RxUnsubscribe implements OnInit {
 
   @Input() product!: Product;
   @Input() isFavourite!: boolean;
+
+  apiURL = environment.apiURL;
 
   constructor(public dialog: MatDialog, private store$: Store, private router: Router) {
     super();

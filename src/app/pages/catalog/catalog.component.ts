@@ -1,12 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable, takeUntil } from "rxjs";
-import { addProduct, getProducts } from "src/app/store/actions/product.action";
+import { addProduct, getProducts, searchProducts } from "src/app/store/actions/product.action";
 import { Product } from "../../models/product.model";
 import { selectProducts } from "../../store/selectors/product.selector";
 import { MatDialog } from "@angular/material/dialog";
 import { ProductFormComponent } from "../../components/product-form/product-form.component";
 import { RxUnsubscribe } from "../../rx-unsubscribe";
+import { MatSelectionList } from "@angular/material/list";
 
 @Component({
   selector: "app-catalog",
@@ -27,7 +28,7 @@ export class CatalogComponent extends RxUnsubscribe implements OnInit {
   }
 
   getProducts(): void{
-    this.store$.dispatch(getProducts());
+    this.store$.dispatch(getProducts({ platform: "", genre: "" }));
     this.products$ = this.store$.select(selectProducts);
   }
 
@@ -43,7 +44,25 @@ export class CatalogComponent extends RxUnsubscribe implements OnInit {
         }
         },
     );
+  }
 
+  platform: string = "";
+  genre: string = "";
+
+  listOfPlatforms: string[] = ["PC", "PS4", "XBOX"];
+  listOfGenres: string[] = ["Action", "RPG", "Sport", "Strategy"];
+
+  filterCatalog(): void{
+    this.store$.dispatch(getProducts({ platform: this.platform, genre: this.genre }));
+  }
+  clearFilter(platforms: MatSelectionList, genres: MatSelectionList): void {
+    platforms.deselectAll();
+    genres.deselectAll();
+    this.filterCatalog();
+  }
+
+  searchFilter(title: string): void{
+    this.store$.dispatch(searchProducts({ title }));
   }
 
 }

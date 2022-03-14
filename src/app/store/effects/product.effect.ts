@@ -15,8 +15,24 @@ export class ProductEffects {
   getProducts$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(ProductActions.getProducts),
-        mergeMap(() =>
-          this.productService.getAllProducts().pipe(
+        mergeMap(({ platform, genre }) =>
+          this.productService.getAllProducts(platform, genre).pipe(
+            map((data: Product[]) => {
+              return ProductActions.getProductsSuccess({
+                products: data
+              });
+            }),
+          ),
+        ),
+      );
+    },
+  );
+
+  searchProducts$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(ProductActions.searchProducts),
+        mergeMap(({ title }) =>
+          this.productService.searchProducts(title).pipe(
             map((data: Product[]) => {
               return ProductActions.getProductsSuccess({
                 products: data

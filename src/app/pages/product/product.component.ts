@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Product } from "../../models/product.model";
 import { ActivatedRoute } from "@angular/router";
-import { RxUnsubscribe } from "../../rx-unsubscribe";
 import { getProduct } from "../../store/actions/product.action";
-import { takeUntil } from "rxjs";
+import { Observable } from "rxjs";
 import { selectCurrentProduct } from "../../store/selectors/product.selector";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-product",
@@ -13,13 +13,13 @@ import { selectCurrentProduct } from "../../store/selectors/product.selector";
   styleUrls: ["./product.component.less"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductComponent extends RxUnsubscribe implements OnInit {
+export class ProductComponent implements OnInit {
 
-  product?: Product;
+  product$?: Observable<Product | undefined>;
   id: string;
+  apiURL = environment.apiURL;
 
-  constructor(private store$: Store, private activateRoute: ActivatedRoute, private cdr: ChangeDetectorRef) {
-    super();
+  constructor(private store$: Store, private activateRoute: ActivatedRoute) {
     this.id = this.activateRoute.snapshot.params["id"];
   }
 
@@ -29,14 +29,7 @@ export class ProductComponent extends RxUnsubscribe implements OnInit {
 
   getProduct(): void {
     this.store$.dispatch(getProduct({ id: this.id }));
-    this.store$.select(selectCurrentProduct)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(
-        (data?: Product) => {
-          this.product = data;
-          this.cdr.markForCheck();
-        },
-      );
+    this.product$ = this.store$.select(selectCurrentProduct);
   }
 
   getColor(rating?: number): string {

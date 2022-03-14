@@ -2,7 +2,7 @@
   <div class="card" [routerLink]="['/game', product._id]">
     <div class="card__desc">
       <div class="card__img">
-        <img src= 'http://localhost:3000/{{product.image}}'>
+        <img src= '{{apiURL}}/{{product.image}}'>
       </div>
       <div class="card__name">
         {{product.title}}
