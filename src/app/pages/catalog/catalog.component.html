@@ -18,14 +18,14 @@
       </mat-expansion-panel-header>
 
       <div class="filter__filters">
-        <mat-selection-list #platforms [(ngModel)]="platform" (selectionChange)="filterCatalog()" class="filter__item" [multiple]="false">
+        <mat-selection-list #platforms [(ngModel)]="platform" (selectionChange)="filterCatalog()" class="filter__item">
           <div mat-subheader>Платформа</div>
           <mat-list-option *ngFor="let platform of listOfPlatforms" [value]="platform">
             {{platform}}
           </mat-list-option>
         </mat-selection-list>
 
-        <mat-selection-list #genres [(ngModel)]="genre" (selectionChange)="filterCatalog()" class="filter__item" [multiple]="false">
+        <mat-selection-list #genres [(ngModel)]="genre" (selectionChange)="filterCatalog()" class="filter__item">
           <div mat-subheader>Жанр</div>
           <mat-list-option *ngFor="let genre of listOfGenres" [value]="genre">
             {{genre}}

@@ -1,59 +1,56 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MaterialModule } from "./modules/material/material.module";
-import { HeaderModule } from "./modules/header/header.module";
-import { CatalogComponent } from "./pages/catalog/catalog.component";
-import { CartComponent } from "./pages/cart/cart.component";
-import { FavouritesComponent } from "./pages/favourites/favourites.component";
-import { OrdersComponent } from "./pages/orders/orders.component";
-import { ProductComponent } from "./pages/product/product.component";
 import { StoreModule } from "@ngrx/store";
 import { reducers } from "./store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { CatalogItemComponent } from "./components/catalog-item/catalog-item.component";
-import { ProductService } from "./services/product/product.service";
 import { EffectsModule } from "@ngrx/effects";
 import { ProductEffects } from "./store/effects/product.effect";
-import { HttpClientModule } from "@angular/common/http";
-import { DialogComponent } from "./components/dialog/dialog.component";
-import { ProductFormComponent } from "./components/product-form/product-form.component";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { ShopModule } from "./modules/shop/shop.module";
+import { RouterModule } from "@angular/router";
+import { AuthModule } from "./modules/auth/auth.module";
+import { AuthEffects } from "./store/effects/auth.effect";
+import { JwtModule } from "@auth0/angular-jwt";
+import { AuthInterceptor } from "./services/auth.interceptor";
+import { AuthGuard } from "./guards/auth.guard";
+import { GuestGuard } from "./guards/guest.guard";
 
 @NgModule({
   declarations: [
     AppComponent,
-    CartComponent,
-    CatalogComponent,
-    CatalogItemComponent,
-    DialogComponent,
-    FavouritesComponent,
-    OrdersComponent,
-    ProductComponent,
-    ProductFormComponent,
-  ],
-  entryComponents: [
-    DialogComponent,
-    ProductFormComponent,
   ],
   imports: [
     AppRoutingModule,
+    AuthModule,
     BrowserAnimationsModule,
     BrowserModule,
-    FormsModule,
-    HeaderModule,
     HttpClientModule,
-    MaterialModule,
-    ReactiveFormsModule,
+
+    RouterModule,
+    ShopModule,
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: (request) => request as any
+      }
+    }),
 
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([ProductEffects]),
+    EffectsModule.forRoot([AuthEffects, ProductEffects]),
     StoreDevtoolsModule.instrument({}),
   ],
-  providers: [ProductService],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    AuthGuard,
+    GuestGuard,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

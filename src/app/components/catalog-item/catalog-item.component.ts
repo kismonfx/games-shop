@@ -7,7 +7,6 @@ import { deleteProduct, updateProduct } from "../../store/actions/product.action
 import { RxUnsubscribe } from "../../rx-unsubscribe";
 import { takeUntil } from "rxjs";
 import { ProductFormComponent } from "../product-form/product-form.component";
-import { Router } from "@angular/router";
 import { environment } from "../../../environments/environment";
 
 @Component({
@@ -22,35 +21,40 @@ export class CatalogItemComponent extends RxUnsubscribe implements OnInit {
 
   apiURL = environment.apiURL;
 
-  constructor(public dialog: MatDialog, private store$: Store, private router: Router) {
+  constructor(public dialog: MatDialog, private store$: Store) {
     super();
   }
 
   ngOnInit(): void {
   }
 
-  openDeleteForm(): void{
-    const dialogRef = this.dialog.open(DialogComponent, { data: this.product.title });
+  openDeleteForm(): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        title: "Удаление товара",
+        dialog: `Вы действительно хотите удалить ${this.product.title}?`
+      }
+    });
 
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe(
-      (result) => {
-        if (result === "true") {
-          this.store$.dispatch(deleteProduct({ id: this.product._id ?? "" }));
-        }
-      },
-    );
+        (result) => {
+          if (result === "true") {
+            this.store$.dispatch(deleteProduct({ id: this.product._id ?? "" }));
+          }
+        },
+      );
   }
 
-  openUpdateForm(): void{
+  openUpdateForm(): void {
     const formRef = this.dialog.open(ProductFormComponent, { data: this.product });
 
     formRef.afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (updatedProduct) => {
-          if (updatedProduct){
+          if (updatedProduct) {
             this.store$.dispatch(updateProduct({ id: this.product._id ?? "", product: updatedProduct }));
           }
         },

@@ -15,6 +15,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatMenuModule } from "@angular/material/menu";
 
 const material = [
   MatIconModule,
@@ -32,6 +33,7 @@ const material = [
   MatDividerModule,
   MatDialogModule,
   MatSnackBarModule,
+  MatMenuModule,
 ];
 
 @NgModule({

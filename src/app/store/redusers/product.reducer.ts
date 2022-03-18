@@ -8,6 +8,7 @@ export const initialState: ProductState = adapter.getInitialState({
 
 export const productReducer = createReducer(
   initialState,
+
   on(ProductActions.getProductsSuccess, (state, { products }) => {
     return adapter.setAll(products, {
       ...state,

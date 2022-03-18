@@ -1,0 +1,57 @@
+<form class="form" [formGroup]="regForm" (ngSubmit)="onSubmit()">
+
+  <h2 class="form__item">Регистрация</h2>
+
+  <mat-form-field class="form__item" appearance="legacy">
+    <mat-label>Логин</mat-label>
+    <input matInput placeholder="Введите логин" formControlName="username">
+    <mat-error *ngIf="regForm.get('username')!.hasError('required')">
+      Поле <strong>обязательно</strong> для заполнения
+    </mat-error>
+    <mat-error *ngIf="regForm.get('username')!.hasError('minlength')">
+      Минимальная длина логина 3 символа
+    </mat-error>
+    <mat-error *ngIf="regForm.get('username')!.hasError('pattern')">
+      Только латинские буквы и цифры
+    </mat-error>
+  </mat-form-field>
+
+
+  <ng-container formGroupName="pass">
+    <mat-form-field class="form__item" appearance="legacy">
+      <mat-label>Пароль</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" placeholder="Введите пароль" formControlName="password">
+      <button mat-icon-button matSuffix (click)="hide = !hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="regForm.get('pass.password')!.hasError('required')">
+        Поле <strong>обязательно</strong> для заполнения
+      </mat-error>
+      <mat-error *ngIf="regForm.get('pass.password')!.hasError('minlength')">
+        Минимальная длина пароля 3 символа
+      </mat-error>
+      <mat-error *ngIf="regForm.get('pass.password')!.hasError('pattern')">
+        Только латинские буквы и цифры
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form__item" appearance="legacy">
+      <mat-label>Повторите пароль</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" placeholder="Введите пароль" formControlName="confirmPassword">
+      <button mat-icon-button matSuffix (click)="hide = !hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="regForm.get('pass.confirmPassword')!.hasError('required')">
+        Поле <strong>обязательно</strong> для заполнения
+      </mat-error>
+    </mat-form-field>
+    <span class="error" *ngIf="regForm.get('pass')!.hasError('passwordError')">
+      Пароли не совпадают
+    </span>
+  </ng-container>
+
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="regForm.invalid">Зарегистрироваться</button>
+
+</form>
+

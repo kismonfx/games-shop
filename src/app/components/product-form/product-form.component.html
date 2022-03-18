@@ -90,8 +90,8 @@
   <input class="file" type="file" accept="image/*" formControlName="image" (change)="onFileSelected($event)">
 
   <mat-dialog-actions class="form__actions">
-    <button *ngIf="data" mat-button type="submit">Изменить</button>
-    <button *ngIf="!data" mat-button type="submit">Добавить</button>
+    <button *ngIf="data" mat-button type="submit" [disabled]="form.invalid">Изменить</button>
+    <button *ngIf="!data" mat-button type="submit" [disabled]="form.invalid">Добавить</button>
     <button mat-button mat-dialog-close type="button" (click)="dialogRef.close()">Отмена</button>
   </mat-dialog-actions>
 

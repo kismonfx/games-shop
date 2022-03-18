@@ -1,0 +1,39 @@
+<form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+  <h2 class="form__item">Вход</h2>
+
+  <mat-form-field class="form__item" appearance="legacy">
+    <mat-label>Логин</mat-label>
+    <input matInput placeholder="Введите логин" formControlName="username">
+    <mat-error *ngIf="loginForm.get('username')!.hasError('required')">
+      Поле <strong>обязательно</strong> для заполнения
+    </mat-error>
+    <mat-error *ngIf="loginForm.get('username')!.hasError('minlength')">
+      Минимальная длина логина 3 символа
+    </mat-error>
+    <mat-error *ngIf="loginForm.get('username')!.hasError('pattern')">
+      Только латинские буквы и цифры
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form__item" appearance="legacy">
+    <mat-label>Пароль</mat-label>
+    <input matInput [type]="hide ? 'password' : 'text'" placeholder="Введите пароль" formControlName="password">
+    <button mat-icon-button matSuffix (click)="hide = !hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <mat-error *ngIf="loginForm.get('password')!.hasError('required')">
+      Поле <strong>обязательно</strong> для заполнения
+    </mat-error>
+    <mat-error *ngIf="loginForm.get('password')!.hasError('minlength')">
+      Минимальная длина пароля 3 символа
+    </mat-error>
+    <mat-error *ngIf="loginForm.get('password')!.hasError('pattern')">
+      Только латинские буквы и цифры
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Войти</button>
+
+</form>
+
