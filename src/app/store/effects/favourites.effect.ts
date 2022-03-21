@@ -1,0 +1,74 @@
+import {Injectable} from "@angular/core";
+import {Actions, createEffect, ofType, ROOT_EFFECTS_INIT} from "@ngrx/effects";
+import * as FavouritesActions from "../actions/favourites.action";
+import {EMPTY, map, mergeMap, tap} from "rxjs";
+import {Product} from "../../models/product.model";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {FavouritesService} from "../../services/favourites/favourites.service";
+import * as AuthActions from "../actions/auth.action";
+
+@Injectable({
+  providedIn: "root"
+})
+export class FavouritesEffects {
+
+  getFavourites$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavouritesActions.getFavourites),
+      mergeMap(() =>
+        this.favouritesService.getFavourites().pipe(
+          map((data: Product[]) => {
+            return FavouritesActions.getFavouritesSuccess({
+              favourites: data
+            });
+          }),
+        ),
+      ),
+    );
+  });
+
+  addFavourite$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavouritesActions.addFavourite),
+      mergeMap(({productId}) =>
+        this.favouritesService.addFavourite(productId).pipe(
+          map((data) => {
+            return FavouritesActions.addFavouriteSuccess({
+              favourite: data
+            });
+          }),
+          tap(() => {
+              this.snackBar.open("Товар добавлен в избранное", "ok", {duration: 3000});
+            },
+          ),
+        ),
+      ),
+    );
+  });
+
+  deleteFavourite$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavouritesActions.deleteFavourite),
+      mergeMap(({productId}) =>
+        this.favouritesService.deleteFavourite(productId).pipe(
+          map((data) => {
+            return FavouritesActions.deleteFavouriteSuccess({
+              productId: data.productId
+            });
+          }),
+          tap(() => {
+              this.snackBar.open("Товар удален из избранного", "ok", {duration: 3000});
+            },
+          ),
+        ),
+      ),
+    );
+  });
+
+  constructor(
+    private actions$: Actions,
+    private favouritesService: FavouritesService,
+    private snackBar: MatSnackBar,
+  ) {
+  }
+}

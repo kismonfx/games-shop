@@ -37,7 +37,7 @@
     </mat-expansion-panel>
   </div>
 
-  <div class="create" >
+  <div *ngIf="isAdmin$ | async" class="create" >
     <button style="width: 100%" mat-flat-button color="primary" (click)="openAddForm()">Добавить товар</button>
   </div>
 

@@ -26,7 +26,7 @@ export class AuthService {
     map((authData) => !authData),
   );
 
-  private apiURL = environment.apiURL + "/users";
+  private apiURL = environment.apiURL + "/auth";
 
   login(user: User): Observable<AuthData> {
     return this.http.post<Token>(`${this.apiURL}/login`, user).pipe(

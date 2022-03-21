@@ -5,9 +5,10 @@ import { DialogComponent } from "../dialog/dialog.component";
 import { Store } from "@ngrx/store";
 import { deleteProduct, updateProduct } from "../../store/actions/product.action";
 import { RxUnsubscribe } from "../../rx-unsubscribe";
-import { takeUntil } from "rxjs";
+import {Observable, takeUntil} from "rxjs";
 import { ProductFormComponent } from "../product-form/product-form.component";
 import { environment } from "../../../environments/environment";
+import {isAdmin} from "../../store/selectors/auth.selector";
 
 @Component({
   selector: "app-catalog-item",
@@ -20,6 +21,8 @@ export class CatalogItemComponent extends RxUnsubscribe implements OnInit {
   @Input() isFavourite!: boolean;
 
   apiURL = environment.apiURL;
+
+  isAdmin$: Observable<boolean | undefined> = this.store$.select(isAdmin);
 
   constructor(public dialog: MatDialog, private store$: Store) {
     super();

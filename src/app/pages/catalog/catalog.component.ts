@@ -8,6 +8,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ProductFormComponent } from "../../components/product-form/product-form.component";
 import { RxUnsubscribe } from "../../rx-unsubscribe";
 import { MatSelectionList } from "@angular/material/list";
+import {isAdmin} from "../../store/selectors/auth.selector";
 
 @Component({
   selector: "app-catalog",
@@ -17,11 +18,11 @@ import { MatSelectionList } from "@angular/material/list";
 export class CatalogComponent extends RxUnsubscribe implements OnInit {
 
   products$: Observable<Product[]> | undefined;
+  isAdmin$: Observable<boolean | undefined> = this.store$.select(isAdmin);
 
   constructor(public dialog: MatDialog, private store$: Store) {
     super();
   }
-
 
   ngOnInit(): void {
     this.getProducts();

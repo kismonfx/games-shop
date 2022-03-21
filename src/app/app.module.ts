@@ -17,6 +17,7 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { AuthInterceptor } from "./services/auth.interceptor";
 import { AuthGuard } from "./guards/auth.guard";
 import { GuestGuard } from "./guards/guest.guard";
+import {FavouritesEffects} from "./store/effects/favourites.effect";
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { GuestGuard } from "./guards/guest.guard";
     }),
 
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects, ProductEffects]),
+    EffectsModule.forRoot([AuthEffects, ProductEffects, FavouritesEffects]),
     StoreDevtoolsModule.instrument({}),
   ],
   providers: [

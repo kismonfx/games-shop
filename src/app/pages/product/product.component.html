@@ -1,24 +1,35 @@
-<ng-container *ngIf="{product: product$ | async} as async">
+<ng-container *ngIf="{
+product: product$ | async,
+favouritesIds: favouritesIds$ | async
+} as data"
+>
   <div class="container">
     <div class="product">
 
       <div class="header">
 
         <div class="product__title">
-          {{async.product?.title}}
-          <button mat-icon-button>
+          {{data.product?.title}}
+
+          <button *ngIf="data.favouritesIds.includes(data.product?._id)" (click)="deleteFavourite()" mat-icon-button
+                  color="accent">
             <mat-icon>favorite</mat-icon>
           </button>
+          <button *ngIf="!data.favouritesIds.includes(data.product?._id)" (click)="addFavourite()" mat-icon-button
+                  color="accent">
+            <mat-icon>favorite_border</mat-icon>
+          </button>
+
         </div>
 
         <div class="product__info">
           <div class="product__img">
-            <img src='{{apiURL}}/{{async.product?.image}}'>
+            <img src='{{apiURL}}/{{data.product?.image}}'>
           </div>
 
           <div class="product__buy">
             <div class="product__buy-price">
-              {{async.product?.price | currency:'RUB':'symbol-narrow':'1.0-0'}}
+              {{data.product?.price | currency:'RUB':'symbol-narrow':'1.0-0'}}
             </div>
             <button class="product__buy-btn" mat-raised-button color="accent">в корзину</button>
           </div>
@@ -26,8 +37,8 @@
 
       </div>
 
-      <div class="product__rating" [style.backgroundColor]="getColor(async.product?.rating)">
-        <div class="product__rating-value">{{async.product?.rating}}</div>
+      <div class="product__rating" [style.backgroundColor]="getColor(data.product?.rating)">
+        <div class="product__rating-value">{{data.product?.rating}}</div>
         <div class="product__rating-desc">Metacritic</div>
       </div>
 
@@ -37,26 +48,26 @@
             <ul class="product__about-list">
               <li class="product__about-item">
                 <div class="product__about-title">Жанр</div>
-                {{async.product?.genre}}
+                {{data.product?.genre}}
               </li>
               <li class="product__about-item">
                 <div class="product__about-title">Платформа</div>
-                {{async.product?.platform}}
+                {{data.product?.platform}}
               </li>
               <li class="product__about-item">
                 <div class="product__about-title">Дата выхода</div>
-                {{async.product?.release | date:"longDate"}}
+                {{data.product?.release | date:"longDate"}}
               </li>
               <li class="product__about-item">
                 <div class="product__about-title">Разработчик</div>
-                {{async.product?.developer}}
+                {{data.product?.developer}}
               </li>
             </ul>
           </div>
         </mat-tab>
         <mat-tab label="Описание">
           <div class="product__desc">
-            {{async.product?.description}}
+            {{data.product?.description}}
           </div>
         </mat-tab>
       </mat-tab-group>

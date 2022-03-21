@@ -14,20 +14,20 @@ export class CartComponent implements OnInit {
   }
 
   products: CartItem[] = [
-    {
-      id: 1,
-      title: "FIFA 22",
-      price: 1500,
-      img: "assets/fifa22.png",
-      qty: 1
-    },
-    {
-      id: 2,
-      title: "Detroit: Become Human",
-      price: 800,
-      img: "assets/detroit.jpg",
-      qty: 1
-    },
+    // {
+    //   id: 1,
+    //   title: "FIFA 22",
+    //   price: 1500,
+    //   img: "assets/fifa22.png",
+    //   qty: 1
+    // },
+    // {
+    //   id: 2,
+    //   title: "Detroit: Become Human",
+    //   price: 800,
+    //   img: "assets/detroit.jpg",
+    //   qty: 1
+    // },
   ];
 
   getTotal(): number{

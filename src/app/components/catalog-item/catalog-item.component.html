@@ -6,7 +6,7 @@
       </div>
       <div class="card__name">
         {{product.title}}
-        <mat-icon *ngIf="isFavourite">favorite</mat-icon>
+        <mat-icon *ngIf="isFavourite" color="accent">favorite</mat-icon>
         <div class="card__info">
           <ng-container [ngSwitch]="product.platform">
             <img *ngSwitchCase="'PC'" class="card__platform" src="../../../assets/win.svg">
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <div class="card__actions">
+  <div *ngIf="(isAdmin$ | async) && !isFavourite" class="card__actions">
     <button mat-raised-button color="primary" class="card__actions-item" (click)="openUpdateForm()">
       <mat-icon>edit</mat-icon>
     </button>

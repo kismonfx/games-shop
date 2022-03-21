@@ -1,8 +1,23 @@
-<!--<div class="container">-->
-<!--  <div class="content">-->
+<ng-container *ngIf="{favourites: favourites$ | async} as data">
 
-<!--    <app-catalog-item *ngFor="let product of products$ | async" [product]="product" [isFavourite]="true">-->
-<!--    </app-catalog-item>-->
+  <div class="container">
+    <div class="content">
 
-<!--  </div>-->
-<!--</div>-->
+      <ng-container *ngIf="data.favourites?.length; else second">
+        <app-catalog-item *ngFor="let product of data.favourites" [product]="product" [isFavourite]="true">
+        </app-catalog-item>
+      </ng-container>
+
+      <ng-template #second>
+        <div class="empty">
+          <div class="empty__action">
+            Список избранного пуст!
+            <button mat-raised-button color="primary" [routerLink]="['']">В каталог</button>
+          </div>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+
+</ng-container>

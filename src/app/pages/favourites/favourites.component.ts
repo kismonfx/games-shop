@@ -1,5 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
+import {Observable} from "rxjs";
+import {Product} from "../../models/product.model";
+import {getFavourites} from "../../store/actions/favourites.action";
+import {selectFavourites} from "../../store/selectors/favoutites.selector";
 
 
 @Component({
@@ -9,11 +13,18 @@ import { Store } from "@ngrx/store";
 })
 export class FavouritesComponent implements OnInit {
 
+  favourites$: Observable<Product[]> | undefined;
 
   constructor(private store$: Store) {
   }
 
   ngOnInit(): void {
+    this.getFavourites();
+  }
+
+  getFavourites(): void{
+    this.store$.dispatch(getFavourites());
+    this.favourites$ = this.store$.select(selectFavourites);
   }
 
 }

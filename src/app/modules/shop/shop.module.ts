@@ -13,6 +13,7 @@ import { ProductComponent } from "../../pages/product/product.component";
 import { ProductFormComponent } from "../../components/product-form/product-form.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ProductService } from "../../services/product/product.service";
+import {FavouritesService} from "../../services/favourites/favourites.service";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { ProductService } from "../../services/product/product.service";
     ReactiveFormsModule,
     RouterModule,
   ],
-  providers: [ProductService],
+  providers: [ProductService, FavouritesService],
 
 })
 export class ShopModule {

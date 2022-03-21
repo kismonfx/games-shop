@@ -3,8 +3,10 @@ import { Store } from "@ngrx/store";
 import { logout } from "../../../store/actions/auth.action";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogComponent } from "../../../components/dialog/dialog.component";
-import { takeUntil } from "rxjs";
+import {Observable, takeUntil} from "rxjs";
 import { RxUnsubscribe } from "../../../rx-unsubscribe";
+import {getFavourites} from "../../../store/actions/favourites.action";
+import {selectFavouritesCount} from "../../../store/selectors/favoutites.selector";
 
 @Component({
   selector: "app-shop",
@@ -17,7 +19,10 @@ export class ShopComponent extends RxUnsubscribe implements OnInit {
     super();
   }
 
+  favouritesCount$: Observable<number> = this.store$.select(selectFavouritesCount);
+
   ngOnInit(): void {
+    this.store$.dispatch(getFavourites());
   }
 
   logout(): void{

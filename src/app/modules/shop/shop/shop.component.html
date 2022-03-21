@@ -1,52 +1,56 @@
-<mat-toolbar color="primary" class="header">
-  <div>
-    <button mat-raised-button color="primary" class="header__btn margin-right" (click)="drawer.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <button mat-flat-button color="primary" class="header__btn" routerLink="catalog">
-      Games-Shop
-    </button>
-  </div>
+<ng-container *ngIf="{favouritesCount: favouritesCount$ | async} as data">
+  <mat-toolbar color="primary" class="header">
+    <div>
+      <button mat-raised-button color="primary" class="header__btn margin-right" (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <button mat-flat-button color="primary" class="header__btn" routerLink="catalog">
+        Games-Shop
+      </button>
+    </div>
 
-  <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item>
-      <mat-icon>account_box</mat-icon>
-      <span>Аккаунт</span>
+    <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
     </button>
-    <button mat-menu-item (click)="logout()">
-      <mat-icon>exit_to_app</mat-icon>
-      <span>Выйти</span>
-    </button>
-  </mat-menu>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>account_box</mat-icon>
+        <span>Аккаунт</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Выйти</span>
+      </button>
+    </mat-menu>
 
-</mat-toolbar>
+  </mat-toolbar>
 
-<mat-sidenav-container class="main">
-  <mat-sidenav #drawer opened="true" mode="side" class="sidenav">
-    <mat-nav-list class="nav">
-      <a class="nav__item" mat-list-item routerLink="catalog" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <mat-icon class="margin-right">view_list</mat-icon>
-        Каталог
-      </a>
-      <a class="nav__item" mat-list-item routerLink="cart" routerLinkActive="active">
-        <mat-icon matBadge="2" matBadgeColor="warn" class="margin-right">shopping_cart</mat-icon>
-        Корзина
-      </a>
-      <a class="nav__item" mat-list-item routerLink="favorites" routerLinkActive="active">
-        <mat-icon class="margin-right">stars</mat-icon>
-        Избранное
-      </a>
-      <a class="nav__item" mat-list-item routerLink="orders" routerLinkActive="active">
-        <mat-icon class="margin-right">store</mat-icon>
-        Мои заказы
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content class="content">
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  <mat-sidenav-container class="main">
+    <mat-sidenav #drawer opened="true" mode="side" class="sidenav">
+      <mat-nav-list class="nav">
+        <a class="nav__item" mat-list-item routerLink="catalog" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <mat-icon class="margin-right">view_list</mat-icon>
+          Каталог
+        </a>
+        <a class="nav__item" mat-list-item routerLink="cart" routerLinkActive="active">
+          <mat-icon matBadge="2" matBadgeColor="warn" class="margin-right">shopping_cart</mat-icon>
+          Корзина
+        </a>
+        <a class="nav__item" mat-list-item routerLink="favorites" routerLinkActive="active">
+          <mat-icon matBadge="{{data.favouritesCount}}" [matBadgeHidden] = "data.favouritesCount === 0" matBadgeColor="accent" class="margin-right">stars</mat-icon>
+          Избранное
+        </a>
+        <a class="nav__item" mat-list-item routerLink="orders" routerLinkActive="active">
+          <mat-icon class="margin-right">store</mat-icon>
+          Мои заказы
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>
+
+
 

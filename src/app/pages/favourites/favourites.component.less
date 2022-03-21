@@ -9,5 +9,30 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 0 25px;
-  margin-top: 25px;
+}
+
+.empty {
+  width: 60vw;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 25px;
+  font-size: 16px;
+
+  &__action {
+    text-align: center;
+    font-weight: bold;
+
+    & button {
+      margin-top: 50px;
+      width: 100%;
+      background-image: linear-gradient(#d61361, #d61361);
+      background-repeat: no-repeat;
+      background-size: 100% 0;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        background-size: 100% 100%;
+      }
+    }
+  }
 }

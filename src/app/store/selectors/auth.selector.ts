@@ -8,4 +8,9 @@ export const getAuthData = createSelector(
   (state) => state.authData,
 );
 
+export const isAdmin = createSelector(
+  getAuthData,
+  (authData) => authData?.isAdmin,
+);
+
 
