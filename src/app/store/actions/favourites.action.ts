@@ -1,5 +1,5 @@
-import {createAction, props} from "@ngrx/store";
-import {Product} from "../../models/product.model";
+import { createAction, props } from "@ngrx/store";
+import { Product } from "../../models/product.model";
 
 export enum EFavouritesActions{
   GET_FAVOURITES = "[Favourites] Get Favourites",

@@ -8,7 +8,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ProductFormComponent } from "../../components/product-form/product-form.component";
 import { RxUnsubscribe } from "../../rx-unsubscribe";
 import { MatSelectionList } from "@angular/material/list";
-import {isAdmin} from "../../store/selectors/auth.selector";
+import { isAdmin } from "../../store/selectors/auth.selector";
 
 @Component({
   selector: "app-catalog",
@@ -29,7 +29,6 @@ export class CatalogComponent extends RxUnsubscribe implements OnInit {
   }
 
   getProducts(): void{
-    this.store$.dispatch(getProducts({ platform: "", genre: "" }));
     this.products$ = this.store$.select(selectProducts);
   }
 

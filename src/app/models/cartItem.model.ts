@@ -1,7 +1,6 @@
+import { Product } from "./product.model";
+
 export interface CartItem{
-  id: number;
-  price: number;
-  title: string;
-  img: string;
-  qty: number;
+  product: Product;
+  quantity: number;
 }

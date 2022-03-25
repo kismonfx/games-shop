@@ -1,51 +1,57 @@
-<div class="container">
+<ng-container *ngIf="{cart: cart$ | async} as data">
+  <div class="container">
 
-  <div class="cart">
+    <div class="cart">
 
-    <div *ngFor="let product of products" class="product">
-      <div class="product__desc">
-        <div class="product__img">
-          <img src="{{product.img}}">
+      <div *ngFor="let cartItem of data.cart" class="product">
+        <div class="product__desc">
+          <div class="product__img">
+            <img src="{{apiURL}}/{{cartItem.product.image}}">
+          </div>
+          <div class="product__title" [routerLink]="['/shop/game', cartItem.product._id]">
+            {{cartItem.product.title}}
+          </div>
         </div>
-        <div class="product__title">
-          {{product.title}}
+
+        <div class="product__quantity">
+          <button mat-icon-button [disabled]="cartItem.quantity === 1" (click)="minusQuantity(cartItem.product._id)">
+            <mat-icon class="product__btn">remove</mat-icon>
+          </button>
+          {{cartItem.quantity}}
+          <button mat-icon-button (click)="plusQuantity(cartItem.product._id)">
+            <mat-icon class="product__btn">add</mat-icon>
+          </button>
         </div>
-      </div>
 
-      <div class="product__quantity">
-        <button mat-icon-button>
-          <mat-icon class="product__btn">remove</mat-icon>
-        </button>
-        {{product.qty}}
-        <button mat-icon-button>
-          <mat-icon class="product__btn">add</mat-icon>
+        <div class="product__price">
+          {{cartItem.product.price * cartItem.quantity | currency:'RUB':'symbol-narrow':'1.0-0'}}
+        </div>
+
+        <button mat-icon-button (click)="deleteProduct(cartItem.product._id)">
+          <mat-icon class="product__btn">clear</mat-icon>
         </button>
       </div>
 
-      <div class="product__price">
-        {{product.price | currency:'RUB':'symbol-narrow':'1.0-0'}}
-      </div>
+      <ng-container *ngIf="data.cart?.length; else second">
+        <div class="cart__total">
+          Итого: {{getTotal(data.cart) | currency:'RUB':'symbol-narrow':'1.0-0'}}
+        </div>
 
-      <button mat-icon-button>
-        <mat-icon class="product__btn">clear</mat-icon>
-      </button>
-    </div>
+        <div class="cart__actions">
+          <button mat-raised-button color="primary">Оформить заказ</button>
+        </div>
+      </ng-container>
 
-    <ng-container *ngIf="products.length">
-      <div class="cart__total">
-        Итого: {{getTotal() | currency:'RUB':'symbol-narrow':'1.0-0'}}
-      </div>
+      <ng-template #second>
+        <div class="cart__actions">
+          Корзина пуста!
+          <button mat-raised-button color="primary" [routerLink]="['']">К покупкам</button>
+        </div>
+      </ng-template>
 
-      <div class="cart__actions">
-        <button mat-raised-button color="primary">Оформить заказ</button>
-      </div>
-    </ng-container>
-
-    <div *ngIf="!products.length" class="cart__actions">
-      Корзина пуста!
-      <button mat-raised-button color="primary" [routerLink]="['']">К покупкам</button>
     </div>
 
   </div>
 
-</div>
+</ng-container>
+

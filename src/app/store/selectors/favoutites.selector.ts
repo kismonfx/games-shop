@@ -1,5 +1,5 @@
-import {createFeatureSelector, createSelector} from "@ngrx/store";
-import {adapter, FavouritesState} from "../state/favourites.state";
+import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { adapter, FavouritesState } from "../state/favourites.state";
 
 export const selectFavouritesState = createFeatureSelector<FavouritesState>("favourites");
 

@@ -1,5 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { CartItem } from "../../models/cartItem.model";
+import { Observable } from "rxjs";
+import { Store } from "@ngrx/store";
+import { selectCart } from "../../store/selectors/cart,selector";
+import { environment } from "../../../environments/environment";
+import { minusQuantity, plusQuantity, deleteProduct } from "../../store/actions/cart.action";
 
 @Component({
   selector: "app-cart",
@@ -8,36 +13,36 @@ import { CartItem } from "../../models/cartItem.model";
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  apiURL = environment.apiURL;
+  cart$: Observable<CartItem[]> | undefined;
+
+  constructor(private store$: Store) { }
 
   ngOnInit(): void {
+    this.cart$ = this.store$.select(selectCart);
   }
 
-  products: CartItem[] = [
-    // {
-    //   id: 1,
-    //   title: "FIFA 22",
-    //   price: 1500,
-    //   img: "assets/fifa22.png",
-    //   qty: 1
-    // },
-    // {
-    //   id: 2,
-    //   title: "Detroit: Become Human",
-    //   price: 800,
-    //   img: "assets/detroit.jpg",
-    //   qty: 1
-    // },
-  ];
-
-  getTotal(): number{
-    let total: number = 0;
-
-    for (const product of this.products){
-      total += product.price * product.qty;
+  getTotal(cart: CartItem[] | null): number {
+    if (!cart){
+      return 0;
     }
 
+    let total = 0;
+    for (const cartItem of cart){
+      total += cartItem.product.price * cartItem.quantity;
+    }
     return total;
+  }
+
+  deleteProduct(productId: string): void{
+    this.store$.dispatch(deleteProduct({ productId }));
+  }
+
+  plusQuantity(productId: string): void {
+    this.store$.dispatch(plusQuantity({ productId }));
+  }
+  minusQuantity(productId: string): void {
+    this.store$.dispatch(minusQuantity({ productId }));
   }
 
 }

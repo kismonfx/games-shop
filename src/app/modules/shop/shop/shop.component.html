@@ -1,4 +1,8 @@
-<ng-container *ngIf="{favouritesCount: favouritesCount$ | async} as data">
+<ng-container *ngIf="{
+favouritesCount: favouritesCount$ | async,
+cartCount: cartCount$ | async
+} as data"
+>
   <mat-toolbar color="primary" class="header">
     <div>
       <button mat-raised-button color="primary" class="header__btn margin-right" (click)="drawer.toggle()">
@@ -33,7 +37,7 @@
           Каталог
         </a>
         <a class="nav__item" mat-list-item routerLink="cart" routerLinkActive="active">
-          <mat-icon matBadge="2" matBadgeColor="warn" class="margin-right">shopping_cart</mat-icon>
+          <mat-icon matBadge="{{data.cartCount}}" [matBadgeHidden] = "data.cartCount === 0" matBadgeColor="warn" class="margin-right">shopping_cart</mat-icon>
           Корзина
         </a>
         <a class="nav__item" mat-list-item routerLink="favorites" routerLinkActive="active">

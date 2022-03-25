@@ -1,41 +1,41 @@
-<div class="container">
+<!--<div class="container">-->
 
-  <div class="order">
+<!--  <div class="order">-->
 
-    <mat-expansion-panel *ngFor="let order of orders" class="order__header">
+<!--    <mat-expansion-panel *ngFor="let order of orders" class="order__header">-->
 
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          № {{order.id}}
-        </mat-panel-title>
-        <mat-panel-description class="order__desc">
-          <div>{{order.create | date:"longDate"}}</div>
-          <div>{{order.status}}</div>
-          <div>{{order.amount | currency:'RUB':'symbol-narrow':'1.0-0'}}</div>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+<!--      <mat-expansion-panel-header>-->
+<!--        <mat-panel-title>-->
+<!--          № {{order.id}}-->
+<!--        </mat-panel-title>-->
+<!--        <mat-panel-description class="order__desc">-->
+<!--          <div>{{order.create | date:"longDate"}}</div>-->
+<!--          <div>{{order.status}}</div>-->
+<!--          <div>{{order.amount | currency:'RUB':'symbol-narrow':'1.0-0'}}</div>-->
+<!--        </mat-panel-description>-->
+<!--      </mat-expansion-panel-header>-->
 
-      <div *ngFor="let product of order.products" class="order__item">
-        <div class="order__item-desc">
-          <div class="order__item-img">
-            <img src="{{product.img}}">
-          </div>
-          <div class="order__item-title">
-            {{product.title}}
-          </div>
-        </div>
-        <div class="order__item-quantity">
-          {{product.qty}}
-        </div>
-        <div class="order__item-price">
-          {{product.price | currency:'RUB':'symbol-narrow':'1.0-0'}}
-        </div>
-        <div class="order__item-amount">
-          {{product.price * product.qty | currency:'RUB':'symbol-narrow':'1.0-0'}}
-        </div>
-      </div>
+<!--      <div *ngFor="let product of order.products" class="order__item">-->
+<!--        <div class="order__item-desc">-->
+<!--          <div class="order__item-img">-->
+<!--            <img src="{{product.img}}">-->
+<!--          </div>-->
+<!--          <div class="order__item-title">-->
+<!--            {{product.title}}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="order__item-quantity">-->
+<!--          {{product.qty}}-->
+<!--        </div>-->
+<!--        <div class="order__item-price">-->
+<!--          {{product.price | currency:'RUB':'symbol-narrow':'1.0-0'}}-->
+<!--        </div>-->
+<!--        <div class="order__item-amount">-->
+<!--          {{product.price * product.qty | currency:'RUB':'symbol-narrow':'1.0-0'}}-->
+<!--        </div>-->
+<!--      </div>-->
 
-    </mat-expansion-panel>
-  </div>
+<!--    </mat-expansion-panel>-->
+<!--  </div>-->
 
-</div>
+<!--</div>-->

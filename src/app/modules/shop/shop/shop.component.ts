@@ -3,10 +3,13 @@ import { Store } from "@ngrx/store";
 import { logout } from "../../../store/actions/auth.action";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogComponent } from "../../../components/dialog/dialog.component";
-import {Observable, takeUntil} from "rxjs";
+import { Observable, takeUntil } from "rxjs";
 import { RxUnsubscribe } from "../../../rx-unsubscribe";
-import {getFavourites} from "../../../store/actions/favourites.action";
-import {selectFavouritesCount} from "../../../store/selectors/favoutites.selector";
+import { getFavourites } from "../../../store/actions/favourites.action";
+import { selectFavouritesCount } from "../../../store/selectors/favoutites.selector";
+import { getProducts } from "../../../store/actions/product.action";
+import { getCart } from "../../../store/actions/cart.action";
+import { selectCartCount } from "../../../store/selectors/cart,selector";
 
 @Component({
   selector: "app-shop",
@@ -20,9 +23,12 @@ export class ShopComponent extends RxUnsubscribe implements OnInit {
   }
 
   favouritesCount$: Observable<number> = this.store$.select(selectFavouritesCount);
+  cartCount$: Observable<number> = this.store$.select(selectCartCount);
 
   ngOnInit(): void {
     this.store$.dispatch(getFavourites());
+    this.store$.dispatch(getProducts({ platform: "", genre: "" }));
+    this.store$.dispatch(getCart());
   }
 
   logout(): void{

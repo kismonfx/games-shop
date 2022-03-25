@@ -1,6 +1,7 @@
 <ng-container *ngIf="{
 product: product$ | async,
-favouritesIds: favouritesIds$ | async
+favouritesIds: favouritesIds$ | async,
+cartIds: cartIds$ | async
 } as data"
 >
   <div class="container">
@@ -31,7 +32,8 @@ favouritesIds: favouritesIds$ | async
             <div class="product__buy-price">
               {{data.product?.price | currency:'RUB':'symbol-narrow':'1.0-0'}}
             </div>
-            <button class="product__buy-btn" mat-raised-button color="accent">в корзину</button>
+            <button *ngIf="data.cartIds.includes(data.product?._id)" class="product__buy-btn" mat-raised-button color="accent" [routerLink]="['/shop/cart']">в корзине</button>
+            <button *ngIf="!data.cartIds.includes(data.product?._id)" class="product__buy-btn" mat-raised-button color="accent" (click)="addProduct()">купить</button>
           </div>
         </div>
 
