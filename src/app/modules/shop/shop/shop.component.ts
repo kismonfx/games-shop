@@ -10,6 +10,10 @@ import { selectFavouritesCount } from "../../../store/selectors/favoutites.selec
 import { getProducts } from "../../../store/actions/product.action";
 import { getCart } from "../../../store/actions/cart.action";
 import { selectCartCount } from "../../../store/selectors/cart,selector";
+import { getOrders } from "../../../store/actions/order.action";
+import { getAuthData } from "../../../store/selectors/auth.selector";
+import { AuthData } from "../../../models/authData";
+import { UserInfoComponent } from "../../../components/user-info/user-info.component";
 
 @Component({
   selector: "app-shop",
@@ -24,11 +28,13 @@ export class ShopComponent extends RxUnsubscribe implements OnInit {
 
   favouritesCount$: Observable<number> = this.store$.select(selectFavouritesCount);
   cartCount$: Observable<number> = this.store$.select(selectCartCount);
+  authData$: Observable<AuthData | null> = this.store$.select(getAuthData);
 
   ngOnInit(): void {
     this.store$.dispatch(getFavourites());
     this.store$.dispatch(getProducts({ platform: "", genre: "" }));
     this.store$.dispatch(getCart());
+    this.store$.dispatch(getOrders());
   }
 
   logout(): void{
@@ -48,6 +54,17 @@ export class ShopComponent extends RxUnsubscribe implements OnInit {
           }
         },
       );
+  }
+
+  showUserInfo(authData: AuthData | null): void {
+    if (authData) {
+      this.dialog.open(UserInfoComponent, {
+        data: {
+          username: authData.username,
+          isAdmin: authData.isAdmin
+        }
+      });
+    }
   }
 
 }

@@ -1,9 +1,10 @@
 import { CartItem } from "./cartItem.model";
 
 export interface Order{
-  id: number;
-  amount: number;
-  create: Date;
-  status: string;
-  products: CartItem[];
+  _id?: string;
+  total?: number;
+  create?: Date;
+  status?: string;
+  cart?: CartItem[];
+  user?: string;
 }

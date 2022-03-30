@@ -25,4 +25,8 @@ export class CartService {
   deleteProduct(productId: string): Observable<{ productId: string }> {
     return this.http.post<{ productId: string }>(`${this.apiURL}/delete`, { productId });
   }
+
+  clearCart(): Observable<void> {
+    return this.http.post<void>(`${this.apiURL}/clear`, {});
+  }
 }

@@ -1,41 +1,76 @@
-<!--<div class="container">-->
+<ng-container
+  *ngIf="{
+  orders: orders$ | async,
+  isAdmin: isAdmin$ | async
+  } as data"
+>
+  <div class="container">
+    <div class="order">
 
-<!--  <div class="order">-->
+      <ng-container *ngIf="data.orders?.length; else second">
+        <mat-expansion-panel *ngFor="let order of data.orders" class="order__header">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              № {{order._id}}
+            </mat-panel-title>
+            <mat-panel-description class="order__desc">
+              <div>{{order.create | date:"longDate"}}</div>
+              <div class="order__desc-status">
+                {{order.status}}
+                <ng-container [ngSwitch]="order.status">
+                  <mat-icon *ngSwitchCase="'В обработке'" class="order__desc-icon">access_time</mat-icon>
+                  <mat-icon *ngSwitchCase="'Отменен'" class="order__desc-icon">highlight_off</mat-icon>
+                  <mat-icon *ngSwitchCase="'Выполнен'" class="order__desc-icon">check_circle_outline</mat-icon>
+                </ng-container>
+              </div>
+              <div>{{order.total | currency:'RUB':'symbol-narrow':'1.0-0'}}</div>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
 
-<!--    <mat-expansion-panel *ngFor="let order of orders" class="order__header">-->
+          <div *ngFor="let cartItem of order.cart" class="order__item">
+            <div class="order__item-desc">
+              <div class="order__item-img">
+                <img src="{{apiURL}}/{{cartItem.product.image}}">
+              </div>
+              <div class="order__item-title" [routerLink]="['/shop/game', cartItem.product._id]">
+                {{cartItem.product.title}}
+              </div>
+            </div>
+            <div class="order__item-quantity">
+              {{cartItem.quantity}}
+            </div>
+            <div class="order__item-price">
+              {{cartItem.product.price | currency:'RUB':'symbol-narrow':'1.0-0'}}
+            </div>
+            <div class="order__item-amount">
+              {{cartItem.product.price * cartItem.quantity | currency:'RUB':'symbol-narrow':'1.0-0'}}
+            </div>
+          </div>
 
-<!--      <mat-expansion-panel-header>-->
-<!--        <mat-panel-title>-->
-<!--          № {{order.id}}-->
-<!--        </mat-panel-title>-->
-<!--        <mat-panel-description class="order__desc">-->
-<!--          <div>{{order.create | date:"longDate"}}</div>-->
-<!--          <div>{{order.status}}</div>-->
-<!--          <div>{{order.amount | currency:'RUB':'symbol-narrow':'1.0-0'}}</div>-->
-<!--        </mat-panel-description>-->
-<!--      </mat-expansion-panel-header>-->
+          <mat-action-row>
+            <ng-container *ngIf="data.isAdmin; else user">
+              <div class="order__info">
+                <div>Пользователь {{order.user}}</div>
+                <div>
+                  <button mat-button color="primary" (click)="updateOrder(order)">Изменить статус</button>
+                  <button mat-button color="warn" (click)="deleteOrder(order._id)">Удалить</button>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #user>
+              <button mat-button color="warn" [disabled]="order.status !== 'В обработке'" (click)="deleteOrder(order._id)">Удалить</button>
+            </ng-template>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </ng-container>
 
-<!--      <div *ngFor="let product of order.products" class="order__item">-->
-<!--        <div class="order__item-desc">-->
-<!--          <div class="order__item-img">-->
-<!--            <img src="{{product.img}}">-->
-<!--          </div>-->
-<!--          <div class="order__item-title">-->
-<!--            {{product.title}}-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="order__item-quantity">-->
-<!--          {{product.qty}}-->
-<!--        </div>-->
-<!--        <div class="order__item-price">-->
-<!--          {{product.price | currency:'RUB':'symbol-narrow':'1.0-0'}}-->
-<!--        </div>-->
-<!--        <div class="order__item-amount">-->
-<!--          {{product.price * product.qty | currency:'RUB':'symbol-narrow':'1.0-0'}}-->
-<!--        </div>-->
-<!--      </div>-->
+      <ng-template #second>
+        <div class="order__actions">
+          История заказов пуста!
+          <button mat-raised-button color="primary" [routerLink]="['']">К покупкам</button>
+        </div>
+      </ng-template>
 
-<!--    </mat-expansion-panel>-->
-<!--  </div>-->
-
-<!--</div>-->
+    </div>
+  </div>
+</ng-container>

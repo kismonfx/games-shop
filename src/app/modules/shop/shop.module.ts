@@ -15,6 +15,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ProductService } from "../../services/product/product.service";
 import { FavouritesService } from "../../services/favourites/favourites.service";
 import { CartService } from "../../services/cart/cart.service";
+import { OrderService } from "../../services/order/order.service";
+import { OrderFormComponent } from "../../components/order-form/order-form.component";
+import { UserInfoComponent } from "../../components/user-info/user-info.component";
 
 @NgModule({
   declarations: [
@@ -23,14 +26,18 @@ import { CartService } from "../../services/cart/cart.service";
     CatalogItemComponent,
     DialogComponent,
     FavouritesComponent,
+    OrderFormComponent,
     OrdersComponent,
     ProductComponent,
     ProductFormComponent,
     ShopComponent,
+    UserInfoComponent,
   ],
   entryComponents: [
     DialogComponent,
+    OrderFormComponent,
     ProductFormComponent,
+    UserInfoComponent,
   ],
   exports: [
     ShopComponent,
@@ -42,7 +49,7 @@ import { CartService } from "../../services/cart/cart.service";
     ReactiveFormsModule,
     RouterModule,
   ],
-  providers: [CartService, FavouritesService, ProductService],
+  providers: [CartService, FavouritesService, OrderService, ProductService],
 
 })
 export class ShopModule {

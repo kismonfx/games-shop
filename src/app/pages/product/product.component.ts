@@ -11,6 +11,7 @@ import { selectFavouritesIds } from "../../store/selectors/favoutites.selector";
 import { addFavourite, deleteFavourite } from "../../store/actions/favourites.action";
 import { addProduct } from "../../store/actions/cart.action";
 import { selectCartIds } from "../../store/selectors/cart,selector";
+import { isAdmin } from "../../store/selectors/auth.selector";
 
 @Component({
   selector: "app-product",
@@ -25,6 +26,7 @@ export class ProductComponent extends RxUnsubscribe implements OnInit {
   apiURL = environment.apiURL;
   favouritesIds$?: Observable<any>;
   cartIds$?: Observable<any>;
+  isAdmin$: Observable<boolean | undefined> = this.store$.select(isAdmin);
 
   constructor(private store$: Store, private activateRoute: ActivatedRoute) {
     super();

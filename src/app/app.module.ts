@@ -19,6 +19,7 @@ import { AuthGuard } from "./guards/auth.guard";
 import { GuestGuard } from "./guards/guest.guard";
 import { FavouritesEffects } from "./store/effects/favourites.effect";
 import { CartEffects } from "./store/effects/cart.effect";
+import { OrderEffects } from "./store/effects/order.effect";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { CartEffects } from "./store/effects/cart.effect";
     }),
 
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects, CartEffects, FavouritesEffects, ProductEffects]),
+    EffectsModule.forRoot([AuthEffects, CartEffects, FavouritesEffects, OrderEffects, ProductEffects]),
     StoreDevtoolsModule.instrument({}),
   ],
   providers: [

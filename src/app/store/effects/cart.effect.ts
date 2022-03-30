@@ -26,6 +26,19 @@ export class CartEffects {
     );
   });
 
+  clearCart$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CartActions.clearCart),
+      mergeMap(() =>
+        this.cartService.clearCart().pipe(
+          map(() => {
+            return CartActions.clearCartSuccess();
+          }),
+        ),
+      ),
+    );
+  });
+
   addProduct$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CartActions.addProduct),

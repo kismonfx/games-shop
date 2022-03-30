@@ -12,7 +12,10 @@ export enum ECartActions{
   DELETE_PRODUCT_SUCCESS = "[Cart] Delete Product Success",
 
   PLUS_QUANTITY = "[Cart] Plus Quantity",
-  MINUS_QUANTITY = "[Cart] Minus Quantity"
+  MINUS_QUANTITY = "[Cart] Minus Quantity",
+
+  CLEAR_CART = "[Cart] Clear Cart",
+  CLEAR_CART_SUCCESS = "[Cart] Clear Cart Success",
 }
 
 export const getCart = createAction(ECartActions.GET_CART);
@@ -26,3 +29,6 @@ export const deleteProductSuccess = createAction(ECartActions.DELETE_PRODUCT_SUC
 
 export const plusQuantity = createAction(ECartActions.PLUS_QUANTITY, props<{ productId: string }>());
 export const minusQuantity = createAction(ECartActions.MINUS_QUANTITY, props<{ productId: string }>());
+
+export const clearCart = createAction(ECartActions.CLEAR_CART);
+export const clearCartSuccess = createAction(ECartActions.CLEAR_CART_SUCCESS);

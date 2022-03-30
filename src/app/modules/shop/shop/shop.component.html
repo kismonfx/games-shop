@@ -1,6 +1,7 @@
 <ng-container *ngIf="{
 favouritesCount: favouritesCount$ | async,
-cartCount: cartCount$ | async
+cartCount: cartCount$ | async,
+authData: authData$ | async
 } as data"
 >
   <mat-toolbar color="primary" class="header">
@@ -17,7 +18,7 @@ cartCount: cartCount$ | async
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item (click)="showUserInfo(data.authData)">
         <mat-icon>account_box</mat-icon>
         <span>Аккаунт</span>
       </button>
@@ -36,17 +37,22 @@ cartCount: cartCount$ | async
           <mat-icon class="margin-right">view_list</mat-icon>
           Каталог
         </a>
-        <a class="nav__item" mat-list-item routerLink="cart" routerLinkActive="active">
+        <a *ngIf="!data.authData!.isAdmin" class="nav__item" mat-list-item routerLink="cart" routerLinkActive="active">
           <mat-icon matBadge="{{data.cartCount}}" [matBadgeHidden] = "data.cartCount === 0" matBadgeColor="warn" class="margin-right">shopping_cart</mat-icon>
           Корзина
         </a>
-        <a class="nav__item" mat-list-item routerLink="favorites" routerLinkActive="active">
+        <a *ngIf="!data.authData!.isAdmin" class="nav__item" mat-list-item routerLink="favorites" routerLinkActive="active">
           <mat-icon matBadge="{{data.favouritesCount}}" [matBadgeHidden] = "data.favouritesCount === 0" matBadgeColor="accent" class="margin-right">stars</mat-icon>
           Избранное
         </a>
         <a class="nav__item" mat-list-item routerLink="orders" routerLinkActive="active">
           <mat-icon class="margin-right">store</mat-icon>
-          Мои заказы
+          <ng-container *ngIf="data.authData!.isAdmin; else user">
+            Заказы
+          </ng-container>
+          <ng-template #user>
+            Мои заказы
+          </ng-template>
         </a>
       </mat-nav-list>
     </mat-sidenav>

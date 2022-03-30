@@ -7,18 +7,21 @@ import { FavouritesState } from "./state/favourites.state";
 import { favouritesReducer } from "./redusers/favourites.reducer";
 import { CartState } from "./state/cart.state";
 import { cartReducer } from "./redusers/cart.reducer";
+import { OrderState } from "./state/order.state";
+import { orderReducer } from "./redusers/order.reducer";
 
 export interface AppState{
   products: ProductState;
   auth: AuthState;
   favourites: FavouritesState;
   cart: CartState;
+  order: OrderState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   products: productReducer,
   auth: authReducer,
   favourites: favouritesReducer,
-  cart: cartReducer
-
+  cart: cartReducer,
+  order: orderReducer
 };

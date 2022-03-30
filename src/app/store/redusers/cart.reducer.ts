@@ -33,5 +33,8 @@ export const cartReducer = createReducer(
     }, state);
   }),
 
+  on(CartAction.clearCartSuccess, (state) => {
+    return adapter.removeAll(state);
+  }),
 
 );
